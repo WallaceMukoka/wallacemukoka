@@ -46,11 +46,16 @@ export default function Navbar() {
   }
 
   return (
-    <nav className={`fixed w-full z-30 transition-all duration-300 ${scrolled ? 'bg-white/90 dark:bg-black/90 shadow-md backdrop-blur-sm' : 'bg-transparent'}`}>
+    <nav className={`fixed w-full z-30 transition-all duration-300 ${scrolled ? 'bg-green-100/90 dark:bg-green-900/90 shadow-md backdrop-blur-sm' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center">
+              <img
+                src="/walle.png"
+                alt="Wallace Mukoka Logo"
+                className="h-12 w-auto mr-3"
+              />
               <span className="text-xl font-bold text-primary">Wallace Mukoka</span>
             </Link>
           </div>

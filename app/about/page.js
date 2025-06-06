@@ -25,7 +25,7 @@ export default function AboutPage() {
             <h2 className="text-3xl font-bold mb-8 text-gray-900">Biography</h2>
             <div className="prose prose-lg max-w-none text-gray-700">
               <p>
-                Wallace Mukoka is a distinguished agronomist and author who holds a Bachelor&apos;s degree in Agronomy from Bindura University of Science and Engineering (BUSE) in Zimbabwe. His academic background has provided him with a strong foundation in agricultural science and sustainable farming practices.
+                Wallace Mukoka is a distinguished agronomist and author who has made significant contributions to the field of agriculture and personal development.
               </p>
               <p>
                 As an accomplished author, Wallace has published three influential books:

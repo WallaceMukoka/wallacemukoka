@@ -98,7 +98,7 @@ export default function ContactPage() {
                         <input
                           type="text"
                           id="name"
-                          className={`block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary px-4 py-3 ${errors.name ? 'border-red-500' : ''}`}
+                          className={`block w-full rounded-md border-2 border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 px-4 py-3 text-gray-900 ${errors.name ? 'border-red-500' : ''}`}
                           {...register('name', { required: 'Name is required' })}
                         />
                         {errors.name && (
@@ -113,7 +113,7 @@ export default function ContactPage() {
                         <input
                           type="email"
                           id="email"
-                          className={`block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary px-4 py-3 ${errors.email ? 'border-red-500' : ''}`}
+                          className={`block w-full rounded-md border-2 border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 px-4 py-3 text-gray-900 ${errors.email ? 'border-red-500' : ''}`}
                           {...register('email', { 
                             required: 'Email is required',
                             pattern: {
@@ -135,7 +135,7 @@ export default function ContactPage() {
                       <input
                         type="text"
                         id="subject"
-                        className={`block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary px-4 py-3 ${errors.subject ? 'border-red-500' : ''}`}
+                        className={`block w-full rounded-md border-2 border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 px-4 py-3 text-gray-900 ${errors.subject ? 'border-red-500' : ''}`}
                         {...register('subject', { required: 'Subject is required' })}
                       />
                       {errors.subject && (
@@ -150,7 +150,7 @@ export default function ContactPage() {
                       <textarea
                         id="message"
                         rows={6}
-                        className={`block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary px-4 py-3 ${errors.message ? 'border-red-500' : ''}`}
+                        className={`block w-full rounded-md border-2 border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 px-4 py-3 text-gray-900 ${errors.message ? 'border-red-500' : ''}`}
                         {...register('message', { required: 'Message is required' })}
                       ></textarea>
                       {errors.message && (
@@ -162,7 +162,7 @@ export default function ContactPage() {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="inline-flex items-center justify-center px-6 py-3 border-2 border-green-600 text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                       >
                         {isSubmitting ? (
                           <>
