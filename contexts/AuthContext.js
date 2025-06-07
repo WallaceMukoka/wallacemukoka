@@ -63,7 +63,7 @@ export function AuthProvider({ children }) {
     loading,
     login,
     logout,
-    isAdmin: user?.email === 'admin@example.com', // Replace with actual admin email
+    isAdmin: user?.email === 'admin@example.com', // Replace with actual adm
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
