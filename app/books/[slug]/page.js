@@ -54,9 +54,9 @@ export default function BookDetailPage() {
           if (relatedData) {
             setRelatedBooks(relatedData);
           }
-        }
-        
-        setLoading(false);
+          }
+          
+          setLoading(false);
       } catch (error) {
         console.error('Error fetching book:', {
           message: error.message,
@@ -117,7 +117,7 @@ export default function BookDetailPage() {
   return (
     <div className="min-h-screen pt-16">
       {/* Book Header */}
-      <section className="bg-gradient-to-r from-primary to-secondary text-white py-16">
+      <section className="bg-gray-100 text-gray-900 py-16">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <Link 
@@ -146,10 +146,10 @@ export default function BookDetailPage() {
                 <h1 className="text-3xl md:text-4xl font-bold mb-4">{book.title}</h1>
                 
                 {book.description && (
-                  <p className="text-xl mb-6 text-white/90">{book.description}</p>
+            <p className="text-xl mb-6 text-black/90">{book.description}</p>
                 )}
-                
-                <div className="flex flex-wrap items-center text-sm md:text-base gap-x-6 gap-y-2">
+            
+            <div className="flex flex-wrap items-center text-sm md:text-base gap-x-6 gap-y-2">
                   {book.author && (
                     <div className="flex items-center">
                       <FaUser className="mr-2" />
@@ -158,18 +158,18 @@ export default function BookDetailPage() {
                   )}
                   
                   {book.published_date && (
-                    <div className="flex items-center">
-                      <FaCalendar className="mr-2" />
-                      <span>Published: {formatDate(book.published_date)}</span>
-                    </div>
+              <div className="flex items-center">
+                <FaCalendar className="mr-2" />
+                <span>Published: {formatDate(book.published_date)}</span>
+              </div>
                   )}
-                  
-                  {book.isbn && (
-                    <div className="flex items-center">
-                      <FaBook className="mr-2" />
-                      <span>ISBN: {book.isbn}</span>
-                    </div>
-                  )}
+              
+              {book.isbn && (
+                <div className="flex items-center">
+                  <FaBook className="mr-2" />
+                  <span>ISBN: {book.isbn}</span>
+                </div>
+              )}
 
                   {book.price && (
                     <div className="flex items-center">
@@ -191,16 +191,16 @@ export default function BookDetailPage() {
             <div className="mb-8 flex justify-between items-center">
               <h2 className="text-2xl font-bold text-gray-900">Book Details</h2>
               {book.price && (
-                <button
-                  onClick={() => {
+              <button
+                onClick={() => {
                     // Handle purchase/download logic
                     alert('Purchase functionality will be implemented here');
-                  }}
-                  className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
-                >
-                  <FaDownload className="mr-2" />
+                }}
+                className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
+              >
+                <FaDownload className="mr-2" />
                   Purchase Book
-                </button>
+              </button>
               )}
             </div>
 
@@ -244,15 +244,15 @@ export default function BookDetailPage() {
                           fill
                           className="object-cover"
                         />
-                      </div>
+                    </div>
                     )}
                     <div className="p-6">
                       <h3 className="text-lg font-bold mb-2 text-gray-800">{relatedBook.title}</h3>
                       {relatedBook.description && (
-                        <p className="text-gray-600 mb-4 line-clamp-2">{relatedBook.description}</p>
+                      <p className="text-gray-600 mb-4 line-clamp-2">{relatedBook.description}</p>
                       )}
                       <Link 
-                        href={`/books/${relatedBook.slug}`}
+                        href={`/books/${relatedBook.id}`}
                         className="inline-flex items-center text-gray-900 hover:text-gray-900/80 font-medium"
                       >
                         View Book

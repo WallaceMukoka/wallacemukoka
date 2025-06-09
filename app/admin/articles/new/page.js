@@ -1,9 +1,9 @@
 'use client';
-
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createArticle, uploadArticleImage } from '../../../../utils/supabase';
+import { createArticle, uploadArticleImage, getImageUrl } from '../../../../utils/supabase';
 import toast from 'react-hot-toast';
+import { supabase } from '../../../../config/supabase-client';
 
 export default function NewArticlePage() {
   const router = useRouter();
@@ -39,7 +39,7 @@ export default function NewArticlePage() {
         setUploading(true);
         const { data, error } = await uploadArticleImage(selectedImage);
         if (error) throw error;
-        coverImagePath = data.path;
+        coverImagePath = getImageUrl(data.path);
         setUploading(false);
       }
 

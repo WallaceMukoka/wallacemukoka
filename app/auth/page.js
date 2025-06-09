@@ -39,7 +39,7 @@ export default function AuthPage() {
   return (
     <div className="min-h-screen pt-16">
       {/* Hero Section */}
-      <section className="py-16 bg-gradient-to-r from-primary to-secondary text-white">
+      <section className="py-16 bg-gray-100 text-gray-900">
         <div className="container mx-auto px-6 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">Login</h1>
           <p className="text-xl max-w-3xl mx-auto">

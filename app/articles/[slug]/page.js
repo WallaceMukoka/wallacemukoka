@@ -8,7 +8,7 @@ import { FaLeaf, FaLightbulb, FaArrowLeft, FaClock, FaUser, FaCalendar } from 'r
 import Image from 'next/image';
 
 export default function ArticleDetailPage() {
-  const { slug } = useParams();
+  const { slug: articleId } = useParams();
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
   const [relatedArticles, setRelatedArticles] = useState([]);
@@ -19,7 +19,7 @@ export default function ArticleDetailPage() {
         const { data, error } = await supabase
           .from('articles')
           .select('*')
-          .eq('id', slug)
+          .eq('id', articleId)
           .single();
         
         if (error) {
@@ -55,9 +55,9 @@ export default function ArticleDetailPage() {
           if (relatedData) {
             setRelatedArticles(relatedData);
           }
-        }
-        
-        setLoading(false);
+          }
+          
+          setLoading(false);
       } catch (error) {
         console.error('Error fetching article:', {
           message: error.message,
@@ -70,10 +70,10 @@ export default function ArticleDetailPage() {
       }
     };
 
-    if (slug) {
+    if (articleId) {
       fetchArticle();
     }
-  }, [slug]);
+  }, [articleId]);
 
   const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
@@ -110,7 +110,7 @@ export default function ArticleDetailPage() {
   return (
     <div className="min-h-screen pt-16">
       {/* Article Header */}
-      <section className="bg-gradient-to-r from-primary to-secondary text-white py-16">
+      <section className="bg-gray-100 text-gray-900 py-16">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <Link 
@@ -132,26 +132,26 @@ export default function ArticleDetailPage() {
                       className="object-cover"
                     />
                   </div>
-                </div>
+              </div>
               )}
               
               <div className="flex-1">
                 <h1 className="text-3xl md:text-4xl font-bold mb-4">{article.title}</h1>
                 
                 {article.excerpt && (
-                  <p className="text-xl mb-6 text-white/90">{article.excerpt}</p>
+                  <p className="text-xl mb-6 text-black/90">{article.excerpt}</p>
                 )}
                 
                 <div className="flex flex-wrap items-center text-sm md:text-base gap-x-6 gap-y-2">
                   {article.author && (
-                    <div className="flex items-center">
+              <div className="flex items-center">
                       <FaUser className="mr-2" />
                       <span>{article.author}</span>
-                    </div>
+              </div>
                   )}
-                  
+              
                   {article.published_date && (
-                    <div className="flex items-center">
+              <div className="flex items-center">
                       <FaCalendar className="mr-2" />
                       <span>Published: {formatDate(article.published_date)}</span>
                     </div>
@@ -190,7 +190,7 @@ export default function ArticleDetailPage() {
                           fill
                           className="object-cover"
                         />
-                      </div>
+                    </div>
                     )}
                     <div className="p-6">
                       <h3 className="text-lg font-bold mb-2 text-gray-800">{relatedArticle.title}</h3>
@@ -198,7 +198,7 @@ export default function ArticleDetailPage() {
                         <p className="text-gray-600 mb-4 line-clamp-2">{relatedArticle.excerpt}</p>
                       )}
                       <Link 
-                        href={`/articles/${relatedArticle.slug}`}
+                        href={`/articles/${relatedArticle.id}`}
                         className="inline-flex items-center text-gray-900 hover:text-gray-900/80 font-medium"
                       >
                         Read Article

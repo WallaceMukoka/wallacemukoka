@@ -9,7 +9,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen pt-16">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-primary to-secondary text-white">
+      <section className="py-20 bg-gray-100 text-gray-900">
         <div className="container mx-auto px-6 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">About Wallace Mukoka</h1>
           <p className="text-xl max-w-3xl mx-auto">
@@ -110,7 +110,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary text-white">
+      <section className="py-16 bg-gray-100 text-gray-900">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-8">Interested in Working Together?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
@@ -118,7 +118,7 @@ export default function AboutPage() {
           </p>
           <a
             href="/contact"
-            className="inline-block px-8 py-3 bg-white text-gray-900 font-semibold rounded-md hover:bg-gray-100 transition-colors shadow-md"
+            className="inline-block px-8 py-3 bg-gray-900 text-white font-semibold rounded-md hover:bg-gray-800 transition-colors shadow-md"
           >
             Get in Touch
           </a>

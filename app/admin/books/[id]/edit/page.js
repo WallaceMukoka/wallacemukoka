@@ -1,25 +1,59 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { createBook, uploadBookFile, getImageUrl } from '../../../../utils/supabase';
+import { getBooks, updateBook, uploadBookFile, getImageUrl } from '../../../../../utils/supabase';
 import toast from 'react-hot-toast';
+import { use } from 'react';
 
-export default function NewBookPage() {
+export default function EditBookPage({ params }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [formData, setFormData] = useState({
     title: '',
-    author: '',
     description: '',
+    author: '',
+    cover_image_url: '',
     published_date: '',
     isbn: '',
     price: '',
-    status: 'draft'
+    pdf_url: ''
   });
+
+  const bookId = use(params).id;
+
+  useEffect(() => {
+    fetchBook();
+  }, []);
+
+  const fetchBook = async () => {
+    try {
+      const { data, error } = await getBooks();
+      if (error) throw error;
+      const book = data.find(book => book.id === bookId);
+      if (!book) {
+        throw new Error('Book not found');
+      }
+      setFormData({
+        title: book.title || '',
+        description: book.description || '',
+        author: book.author || '',
+        cover_image_url: book.cover_image_url || '',
+        published_date: book.published_date || '',
+        isbn: book.isbn || '',
+        price: book.price || '',
+        pdf_url: book.pdf_url || ''
+      });
+    } catch (error) {
+      console.error('Error fetching book:', error);
+      toast.error('Failed to fetch book');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
@@ -47,8 +81,8 @@ export default function NewBookPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      let pdfPath = null;
-      let coverImagePath = null;
+      let pdfPath = formData.pdf_url;
+      let coverImagePath = formData.cover_image_url;
 
       if (selectedFile) {
         setUploading(true);
@@ -66,7 +100,7 @@ export default function NewBookPage() {
         setUploading(false);
       }
 
-      const { error } = await createBook({
+      const { error } = await updateBook(bookId, {
         ...formData,
         pdf_url: pdfPath,
         cover_image_url: coverImagePath,
@@ -74,31 +108,39 @@ export default function NewBookPage() {
       });
 
       if (error) throw error;
-      toast.success('Book created successfully');
+      toast.success('Book updated successfully');
       router.push('/admin/books');
     } catch (error) {
-      console.error('Error creating book:', error);
-      toast.error('Failed to create book');
+      console.error('Error updating book:', error);
+      toast.error('Failed to update book');
     } finally {
       setLoading(false);
     }
   };
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="max-w-4xl mx-auto p-6">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Add New Book</h1>
-        <p className="mt-1 text-sm text-gray-600">Create a new book entry.</p>
+        <h2 className="text-2xl font-bold text-gray-900">Edit Book</h2>
+        <p className="text-gray-600">Update the book details below</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-lg border border-gray-200">
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
           <input
             type="text"
-            value={formData.title}
+            value={formData.title || ''}
             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+            className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             required
           />
         </div>
@@ -107,9 +149,9 @@ export default function NewBookPage() {
           <label className="block text-sm font-medium text-gray-700 mb-1">Author</label>
           <input
             type="text"
-            value={formData.author}
+            value={formData.author || ''}
             onChange={(e) => setFormData({ ...formData, author: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+            className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             required
           />
         </div>
@@ -117,46 +159,10 @@ export default function NewBookPage() {
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
           <textarea
-            value={formData.description}
+            value={formData.description || ''}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
-            rows="4"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">ISBN</label>
-          <input
-            type="text"
-            value={formData.isbn}
-            onChange={(e) => setFormData({ ...formData, isbn: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Price</label>
-          <input
-            type="number"
-            step="0.01"
-            min="0"
-            value={formData.price}
-            onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Published Date</label>
-          <input
-            type="date"
-            value={formData.published_date}
-            onChange={(e) => setFormData({ ...formData, published_date: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
-            required
+            className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            rows="3"
           />
         </div>
 
@@ -179,6 +185,11 @@ export default function NewBookPage() {
             {selectedImage && (
               <span className="ml-3 text-sm text-gray-500">
                 {selectedImage.name}
+              </span>
+            )}
+            {!selectedImage && formData.cover_image_url && (
+              <span className="ml-3 text-sm text-gray-500">
+                Current image: {formData.cover_image_url.split('/').pop()}
               </span>
             )}
           </div>
@@ -205,35 +216,59 @@ export default function NewBookPage() {
                 {selectedFile.name}
               </span>
             )}
+            {!selectedFile && formData.pdf_url && (
+              <span className="ml-3 text-sm text-gray-500">
+                Current PDF: {formData.pdf_url.split('/').pop()}
+              </span>
+            )}
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
-          <select
-            value={formData.status}
-            onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
-          >
-            <option value="draft">Draft</option>
-            <option value="published">Published</option>
-          </select>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Published Date</label>
+          <input
+            type="date"
+            value={formData.published_date || ''}
+            onChange={(e) => setFormData({ ...formData, published_date: e.target.value })}
+            className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          />
         </div>
 
-        <div className="flex justify-end space-x-3 pt-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">ISBN</label>
+          <input
+            type="text"
+            value={formData.isbn || ''}
+            onChange={(e) => setFormData({ ...formData, isbn: e.target.value })}
+            className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Price</label>
+          <input
+            type="number"
+            step="0.01"
+            value={formData.price || ''}
+            onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+            className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          />
+        </div>
+
+        <div className="flex justify-end space-x-3">
           <button
             type="button"
-            onClick={() => router.back()}
-            className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            onClick={() => router.push('/admin/books')}
+            className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={loading || uploading}
-            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading || uploading ? 'Creating...' : 'Create Book'}
+            {loading || uploading ? 'Updating...' : 'Update Book'}
           </button>
         </div>
       </form>

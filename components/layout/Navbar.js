@@ -46,7 +46,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className={`fixed w-full z-30 transition-all duration-300 ${scrolled ? 'bg-green-100/90 dark:bg-green-900/90 shadow-md backdrop-blur-sm' : 'bg-transparent'}`}>
+    <nav className={`fixed w-full z-30 transition-all duration-300 ${scrolled ? 'bg-green-100/90 dark:bg-green-900/90 shadow-md backdrop-blur-sm' : 'bg-gray-100'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
@@ -56,7 +56,7 @@ export default function Navbar() {
                 alt="Wallace Mukoka Logo"
                 className="h-12 w-auto mr-3"
               />
-              <span className="text-xl font-bold text-primary">Wallace Mukoka</span>
+              <span className="text-xl font-bold text-gray-900">Wallace Mukoka</span>
             </Link>
           </div>
 
@@ -69,7 +69,7 @@ export default function Navbar() {
                 className={`${
                   pathname === link.path
                     ? 'text-primary font-semibold'
-                    : 'text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-white'
+                    : 'text-black hover:text-primary dark:text-black '
                 } transition-colors duration-200`}
               >
                 {link.name}
@@ -81,7 +81,7 @@ export default function Navbar() {
           <div className="flex items-center md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-700 dark:text-gray-300 focus:outline-none"
+              className="text-gray-900 dark:text-gray-300 focus:outline-none"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? (
@@ -96,7 +96,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-900 shadow-lg">
+        <div className="md:hidden bg-gray-100 dark:bg-gray-900 shadow-lg">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {navLinks.map((link) => (
               <Link
@@ -105,7 +105,7 @@ export default function Navbar() {
                 className={`${
                   pathname === link.path
                     ? 'text-primary font-semibold'
-                    : 'text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-white'
+                    : 'text-black hover:text-primary dark:text-black'
                 } block px-3 py-2 rounded-md text-base font-medium`}
                 onClick={() => setIsMenuOpen(false)}
               >
