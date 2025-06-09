@@ -88,7 +88,7 @@ export default function EditBookPage({ params }) {
         setUploading(true);
         const { data, error } = await uploadBookFile(selectedFile);
         if (error) throw error;
-        pdfPath = data.path;
+        pdfPath = getImageUrl(data.path);
         setUploading(false);
       }
 
