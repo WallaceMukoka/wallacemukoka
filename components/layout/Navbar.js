@@ -96,7 +96,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-gray-100 dark:bg-gray-900 shadow-lg">
+        <div className="md:hidden bg-gray-100 dark:bg-gray-100 shadow-lg">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {navLinks.map((link) => (
               <Link

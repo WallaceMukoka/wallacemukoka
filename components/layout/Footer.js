@@ -103,7 +103,7 @@ export default function Footer() {
                 <FaPhone className="mr-2" />
                 <a href="tel:+263771708658" className="hover:text-white transition-colors">+263 77 170 8658</a>
               </li>
-              <li>Email: info@wallacemukoka.co.zw</li>
+              <li>Email: wallace.mw14@gmail.com</li>
             </ul>
           </div>
         </div>
