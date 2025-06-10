@@ -17,7 +17,7 @@ export default function Footer() {
               <h2 className="text-xl font-bold text-white">Wallace Mukoka</h2>
             </div>
             <p className="mb-4 text-gray-400">
-              Agronomist & Author passionate about educating people on agriculture and personal development.
+              Agronomist & Author, passionate about educating people on agriculture and personal development.
             </p>
             <div className="flex space-x-4">
               <a
