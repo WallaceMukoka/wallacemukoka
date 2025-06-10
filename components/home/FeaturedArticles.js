@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getArticles } from '../../utils/supabase';
 import { FaArrowRight, FaLeaf, FaLightbulb } from 'react-icons/fa';
 
@@ -65,8 +66,20 @@ export default function FeaturedArticles() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
               {articles.map((article) => (
                 <div key={article.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-                  <div className="h-48 bg-gradient-to-r from-primary/20 to-secondary/20 flex items-center justify-center">
-                    <span className="text-5xl opacity-30">{getCategoryIcon(article.category)}</span>
+                  <div className="relative h-48 w-full">
+                    {article.cover_image_url ? (
+                      <Image
+                        src={article.cover_image_url}
+                        alt={article.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    ) : (
+                      <div className="h-full w-full bg-gradient-to-r from-primary/20 to-secondary/20 flex items-center justify-center">
+                        <span className="text-5xl opacity-30">{getCategoryIcon(article.category)}</span>
+                      </div>
+                    )}
                   </div>
                   <div className="p-6">
                     <div className="flex items-center mb-4">

@@ -57,8 +57,18 @@ export default function FeaturedBooks() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
               {books.map((book) => (
                 <div key={book.id} className="bg-gray-50 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
-                  <div className="h-64 bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center">
-                    <FaBook className="text-6xl text-accent/40" />
+                  <div className="h-64 relative">
+                    {book.cover_image_url ? (
+                      <img 
+                        src={book.cover_image_url} 
+                        alt={`Cover of ${book.title}`}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center">
+                        <FaBook className="text-6xl text-accent/40" />
+                      </div>
+                    )}
                   </div>
                   <div className="p-6">
                     <div className="flex justify-between items-center mb-4">

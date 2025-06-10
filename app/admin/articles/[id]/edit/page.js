@@ -15,7 +15,8 @@ export default function EditArticlePage({ params }) {
     excerpt: '',
     cover_image_url: '',
     author: '',
-    status: 'draft'
+    status: 'draft',
+    category: 'agriculture'
   });
 
   const articleId = use(params).id;
@@ -38,7 +39,8 @@ export default function EditArticlePage({ params }) {
         excerpt: article.excerpt,
         cover_image_url: article.cover_image_url,
         author: article.author,
-        status: article.status
+        status: article.status,
+        category: article.category || 'agriculture'
       });
     } catch (error) {
       console.error('Error fetching article:', error);
@@ -139,6 +141,19 @@ export default function EditArticlePage({ params }) {
           >
             <option value="draft">Draft</option>
             <option value="published">Published</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+          <select
+            value={formData.category}
+            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+            className="mt-1 block w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            required
+          >
+            <option value="agriculture">Agriculture</option>
+            <option value="motivation">Motivation</option>
           </select>
         </div>
 

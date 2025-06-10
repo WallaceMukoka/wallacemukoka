@@ -68,8 +68,8 @@ export default function Navbar() {
                 href={link.path}
                 className={`${
                   pathname === link.path
-                    ? 'text-primary font-semibold'
-                    : 'text-black hover:text-primary dark:text-black '
+                    ? 'text-gray-900 font-semibold'
+                    : 'text-gray-900 hover:text-gray-900 dark:text-black '
                 } transition-colors duration-200`}
               >
                 {link.name}
@@ -81,7 +81,7 @@ export default function Navbar() {
           <div className="flex items-center md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-900 dark:text-gray-300 focus:outline-none"
+              className="text-gray-900 dark:text-gray-900 focus:outline-none"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? (
@@ -104,8 +104,8 @@ export default function Navbar() {
                 href={link.path}
                 className={`${
                   pathname === link.path
-                    ? 'text-primary font-semibold'
-                    : 'text-black hover:text-primary dark:text-black'
+                    ? 'text-black font-semibold'
+                    : 'text-black hover:text-black dark:text-black'
                 } block px-3 py-2 rounded-md text-base font-medium`}
                 onClick={() => setIsMenuOpen(false)}
               >

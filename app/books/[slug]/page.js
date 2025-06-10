@@ -190,18 +190,32 @@ export default function BookDetailPage() {
           <div className="max-w-4xl mx-auto">
             <div className="mb-8 flex justify-between items-center">
               <h2 className="text-2xl font-bold text-gray-900">Book Details</h2>
-              {book.price && (
-              <button
-                onClick={() => {
-                    // Handle purchase/download logic
-                    alert('Purchase functionality will be implemented here');
-                }}
-                className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
-              >
-                <FaDownload className="mr-2" />
-                  Purchase Book
-              </button>
-              )}
+              <div className="flex gap-4">
+                {book.pdf_url && (
+                  <a
+                    href={book.pdf_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-4 py-2 bg-gray-900 text-white rounded-md hover:bg-gray-900/90 transition-colors"
+                    aria-label={`Download ${book.title} PDF`}
+                  >
+                    <FaDownload className="mr-2" />
+                    Download PDF
+                  </a>
+                )}
+                {book.price && (
+                  <button
+                    onClick={() => {
+                      // Handle purchase/download logic
+                      alert('Purchase functionality will be implemented here');
+                    }}
+                    className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
+                  >
+                    <FaDownload className="mr-2" />
+                    Purchase Book
+                  </button>
+                )}
+              </div>
             </div>
 
             <div className="prose prose-lg mx-auto text-gray-900">
