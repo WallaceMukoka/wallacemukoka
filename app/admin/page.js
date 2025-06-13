@@ -112,12 +112,6 @@ export default function AdminPage() {
                   <span className="text-sm text-gray-500">
                     {new Date(article.published_date).toLocaleDateString()}
                   </span>
-                  <Link
-                    href={`/admin/articles/${article.id}`}
-                    className="text-sm text-blue-600 hover:text-blue-800 font-medium"
-                  >
-                    Edit
-                  </Link>
                 </div>
               </div>
             </div>
@@ -161,12 +155,6 @@ export default function AdminPage() {
                       <span className="font-medium text-green-600">${parseFloat(book.price).toFixed(2)}</span>
                     )}
                   </div>
-                  <Link
-                    href={`/admin/books/${book.id}`}
-                    className="text-sm text-blue-600 hover:text-blue-800 font-medium"
-                  >
-                    Edit
-                  </Link>
                 </div>
               </div>
             </div>

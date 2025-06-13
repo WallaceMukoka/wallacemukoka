@@ -167,7 +167,17 @@ export default function ArticleDetailPage() {
       <section className="py-12 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="prose prose-lg mx-auto text-gray-900" dangerouslySetInnerHTML={{ __html: article.content }}></div>
+            <div className="prose prose-lg mx-auto text-gray-900">
+              {article.content.split('\n').map((paragraph, index) => (
+                paragraph.trim() ? (
+                  <p key={index} className="mb-4 leading-relaxed">
+                    {paragraph}
+                  </p>
+                ) : (
+                  <br key={index} />
+                )
+              ))}
+            </div>
           </div>
         </div>
       </section>
