@@ -15,6 +15,7 @@ export default function AdminLayout({ children }) {
     { path: '/admin', label: 'Dashboard', icon: '📊' },
     { path: '/admin/articles', label: 'Articles', icon: '📝' },
     { path: '/admin/books', label: 'Books', icon: '📚' },
+    { path: '/admin/messages', label: 'Messages', icon: '💬' },
     { path: '/admin/articles/new', label: 'Add Article', icon: '➕' },
     { path: '/admin/books/new', label: 'Add Book', icon: '➕' },
   ];

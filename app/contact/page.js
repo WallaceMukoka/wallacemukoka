@@ -1,9 +1,8 @@
 'use client';
-
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
-import { supabase } from '../../utils/supabase';
+import { supabase } from '../../config/supabase-client';
 import toast from 'react-hot-toast';
 
 export default function ContactPage() {
@@ -21,16 +20,17 @@ export default function ContactPage() {
     setIsSubmitting(true);
     
     try {
-      // In a real app, we would send this to Supabase
-      // const { error } = await supabase
-      //   .from('contacts')
-      //   .insert([data]);
+      const { error } = await supabase
+        .from('messages')
+        .insert([{
+          name: data.name,
+          email: data.email,
+          subject: data.subject,
+          message: data.message
+        }]);
       
-      // if (error) throw error;
+      if (error) throw error;
 
-      // For now, we'll just simulate a successful submission
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      
       toast.success('Message sent successfully!');
       setSubmitted(true);
       reset();
