@@ -17,10 +17,10 @@ export default function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/mana.jpg"
+          src="/fruits.jpeg"
           alt="Agricultural landscape"
           fill
-          className="object-cover"
+          className="object-cover blur-sm scale-105"
           priority
         />
         <div className="absolute inset-0 bg-black/50" />
